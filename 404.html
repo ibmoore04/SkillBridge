@@ -6,19 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
     <script>
+        // GitHub Pages redirect for hash-based routing
+        const base = '/SkillBridge/';
         const pathname = window.location.pathname;
-        const repoBase = pathname.replace(/\/[^\/]*$/, "/");
-        let redirectPath = pathname.replace(repoBase, "");
-        if (!redirectPath.startsWith("/")) {
-            redirectPath = "/" + redirectPath;
+
+        // Remove the base path prefix
+        let path = pathname;
+        if (pathname.startsWith(base)) {
+            path = '/' + pathname.slice(base.length);
         }
-        const target = repoBase + "#" + redirectPath + window.location.search + window.location.hash;
+
+        // If path is root or empty, go to login
+        if (!path || path === '/' || path === '/index.html') {
+            path = '/login';
+        }
+
+        // Redirect to hash-based route
+        const target = base + '#' + path;
         window.location.replace(target);
     </script>
 </head>
 
 <body>
-    <p>Redirecting to the app...</p>
+    <p>Redirecting...</p>
 </body>
 
 </html>

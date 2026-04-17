@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import { isLoggedIn } from "../utils/auth.js";
 
 const routes = [
   {
@@ -22,7 +21,6 @@ const routes = [
     path: "/home",
     name: "Home",
     component: () => import("../views/Home.vue"),
-    meta: { requiresAuth: true },
   },
 
   {
@@ -44,16 +42,6 @@ const router = createRouter({
     }
     return { top: 0 };
   },
-});
-
-router.beforeEach((to) => {
-  if (to.meta.requiresAuth && !isLoggedIn()) {
-    return "/login";
-  }
-
-  if ((to.path === "/login" || to.path === "/signup") && isLoggedIn()) {
-    return "/home";
-  }
 });
 
 export default router;
