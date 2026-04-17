@@ -1,11 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import LoginPage from "../views/LoginPage.vue";
-import SignUp from "../views/SignUp.vue";
-import Home from "../views/Home.vue";
-
-const isLoggedIn = () => {
-  return localStorage.getItem("isLoggedIn") === "true";
-};
+import { isLoggedIn } from "../utils/auth.js";
 
 const routes = [
   {
@@ -22,18 +16,13 @@ const routes = [
     path: "/signup",
     name: "SignUp",
     component: () => import("../views/SignUp.vue"),
+    meta: { hideLayout: true },
   },
   {
     path: "/home",
     name: "Home",
     component: () => import("../views/Home.vue"),
-    beforeEnter: (to, from) => {
-      if (localStorage.getItem("isLoggedIn") === "true") {
-        return true;
-      } else {
-        return "/login";
-      }
-    },
+    meta: { requiresAuth: true },
   },
 
   {
@@ -43,7 +32,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory("/SkillBridge/"),
+  history: createWebHashHistory(),
   routes,
 
   scrollBehavior(to) {
@@ -55,6 +44,16 @@ const router = createRouter({
     }
     return { top: 0 };
   },
+});
+
+router.beforeEach((to) => {
+  if (to.meta.requiresAuth && !isLoggedIn()) {
+    return "/login";
+  }
+
+  if ((to.path === "/login" || to.path === "/signup") && isLoggedIn()) {
+    return "/home";
+  }
 });
 
 export default router;

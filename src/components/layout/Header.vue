@@ -52,16 +52,28 @@
 
         <!-- Right -->
         <div class="flex items-center gap-3">
-          <!-- Desktop Auth -->
           <div class="hidden lg:flex items-center gap-4">
-            <router-link to="/signup" class="text-sm text-gray-700 hover:text-orange-500">
-              Sign Up
-            </router-link>
+            <template v-if="currentUser">
+              <span class="text-sm text-gray-700">
+                Hi, <strong>{{ currentUser.name }}</strong>
+              </span>
+              <button
+                @click="handleLogout"
+                class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium"
+              >
+                Logout
+              </button>
+            </template>
+            <template v-else>
+              <router-link to="/signup" class="text-sm text-gray-700 hover:text-orange-500">
+                Sign Up
+              </router-link>
 
-            <router-link to="/login"
-              class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-md text-sm font-medium">
-              Login
-            </router-link>
+              <router-link to="/login"
+                class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-md text-sm font-medium">
+                Login
+              </router-link>
+            </template>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -88,13 +100,19 @@
           </ul>
 
           <div class="flex gap-5">
-            <router-link to="/signup" class="hover:text-gray-900">
-              Sign Up
-            </router-link>
+            <template v-if="currentUser">
+              <span class="font-medium text-gray-900">Hi, {{ currentUser.name }}</span>
+              <button @click="handleLogout" class="text-orange-500">Logout</button>
+            </template>
+            <template v-else>
+              <router-link to="/signup" class="hover:text-gray-900">
+                Sign Up
+              </router-link>
 
-            <router-link to="/login" class="hover:text-gray-900">
-              Login
-            </router-link>
+              <router-link to="/login" class="hover:text-gray-900">
+                Login
+              </router-link>
+            </template>
           </div>
         </div>
       </transition>
@@ -103,12 +121,21 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useRouter } from "vue-router";
+import { getCurrentUser, logout } from "../../utils/auth.js";
 
+const router = useRouter();
 const isOpen = ref(false);
+const currentUser = computed(() => getCurrentUser());
 
 const toggleMenu = () => {
   isOpen.value = !isOpen.value;
+};
+
+const handleLogout = () => {
+  logout();
+  router.push("/login");
 };
 
 </script>

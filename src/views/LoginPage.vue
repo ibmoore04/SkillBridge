@@ -50,7 +50,7 @@
 
       <p class="text-xs md:text-sm text-gray-500 mt-6 text-center">
         Don’t have an account?
-        <a href="/signup" class="text-orange-500">Sign Up</a>
+        <router-link to="/signup" class="text-orange-500">Sign Up</router-link>
       </p>
 
     </div>
@@ -61,6 +61,7 @@
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2";
+import { authenticate } from "../utils/auth.js";
 
 const router = useRouter();
 
@@ -73,37 +74,22 @@ const togglePassword = () => {
 };
 
 const handleLogin = () => {
-  if (!email.value || !password.value) {
+  if (!email.value.trim() || !password.value) {
     return Swal.fire("Missing Fields", "Please fill in all fields", "info");
   }
 
-  const savedUser = JSON.parse(localStorage.getItem("user") || "null");
+  const user = authenticate(email.value.trim(), password.value);
 
-  if (!savedUser) {
-    return Swal.fire(
-      "No Account",
-      "Please sign up first before logging in.",
-      "warning"
-    );
+  if (!user) {
+    return Swal.fire("Login Failed", "Incorrect email or password", "error");
   }
 
-  if (
-    email.value === savedUser.email &&
-    password.value === savedUser.password
-  ) {
-    // IMPORTANT: set login state
-    localStorage.setItem("isLoggedIn", "true");
+  Swal.fire({
+    title: "Welcome back 🎉",
+    text: `Hello ${user.name}`,
+    icon: "success",
+  });
 
-    
-    Swal.fire({
-      title: "Welcome back 🎉",
-      text: `Hello ${savedUser.name}`,
-      icon: "success",
-    });
-
-    router.push("/home");
-  } else {
-    Swal.fire("Login Failed", "Incorrect email or password", "error");
-  }
+  router.push("/home");
 };
 </script>

@@ -109,7 +109,7 @@
         <!-- LOGIN LINK -->
         <p class="text-sm text-gray-500 mt-6 text-center">
           Already have an account?
-          <a href="/login" class="text-orange-500 hover:underline">Login</a>
+          <router-link to="/login" class="text-orange-500 hover:underline">Login</router-link>
         </p>
       </div>
     </div>
@@ -120,6 +120,7 @@
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import Swal from "sweetalert2";
+import { registerUser, logout } from "../utils/auth.js";
 
 const router = useRouter();
 
@@ -146,7 +147,7 @@ const validateForm = () => {
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(form.email)) {
+  if (!emailRegex.test(form.email.trim())) {
     Swal.fire("Invalid Email", "Enter a valid email", "error");
     return false;
   }
@@ -168,11 +169,17 @@ const validateForm = () => {
 const handleSubmit = () => {
   if (!validateForm()) return;
 
-  const existingUser = JSON.parse(localStorage.getItem("user"));
+  const user = {
+    name: form.name.trim(),
+    email: form.email.trim(),
+    password: form.password,
+  };
 
-  if (existingUser && existingUser.email === form.email) {
+  if (!registerUser(user)) {
     return Swal.fire("Exists", "Account already exists", "warning");
   }
+
+  logout();
 
   Swal.fire({
     title: "Creating Account...",
@@ -181,15 +188,6 @@ const handleSubmit = () => {
   });
 
   setTimeout(() => {
-    const user = {
-      name: form.name,
-      email: form.email,
-      password: form.password,
-    };
-
-    localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("isLoggedIn", "false");
-
     Swal.fire("Success 🎉", "Account created successfully", "success");
 
     form.name = "";
