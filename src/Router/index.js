@@ -34,11 +34,16 @@ const routes = [
         return "/login";
       }
     },
-  },  
+  }, 
+  
+  {
+  path: '/:pathMatch(.*)*',
+  redirect: '/login'
+}
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/SkillBridge/'),
   routes,
 
   scrollBehavior(to) {
