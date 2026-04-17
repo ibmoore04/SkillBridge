@@ -9,26 +9,34 @@
         // GitHub Pages redirect for hash-based routing
         const base = '/SkillBridge/';
         const pathname = window.location.pathname;
+        const search = window.location.search;
+        const hash = window.location.hash;
 
         // Remove the base path prefix
         let path = pathname;
         if (pathname.startsWith(base)) {
-            path = '/' + pathname.slice(base.length);
+            path = pathname.slice(base.length);
         }
 
-        // If path is root or empty, go to login
-        if (!path || path === '/' || path === '/index.html') {
+        // Remove trailing slashes and index.html
+        path = path.replace(/\/$/, '').replace(/\/index\.html$/, '');
+        if (!path || path === '') {
             path = '/login';
         }
 
-        // Redirect to hash-based route
-        const target = base + '#' + path;
+        // Ensure path starts with /
+        if (!path.startsWith('/')) {
+            path = '/' + path;
+        }
+
+        // Create the target hash URL
+        const target = base + '#' + path + search + hash;
         window.location.replace(target);
     </script>
 </head>
 
 <body>
-    <p>Redirecting...</p>
+    <p>Redirecting to the app...</p>
 </body>
 
 </html>
