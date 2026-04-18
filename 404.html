@@ -6,32 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
     <script>
-        // GitHub Pages redirect for hash-based routing
-        const base = '/SkillBridge/';
-        const pathname = window.location.pathname;
-        const search = window.location.search;
-        const hash = window.location.hash;
+        // GitHub Pages SPA routing fix
+        const path = window.location.pathname;
+        const segments = path.split('/');
+        const repo = 'SkillBridge'; // Your repo name
 
-        // Remove the base path prefix
-        let path = pathname;
-        if (pathname.startsWith(base)) {
-            path = pathname.slice(base.length);
+        // Find the repo name in the path
+        const repoIndex = segments.indexOf(repo);
+        if (repoIndex !== -1) {
+            // Get everything after repo name
+            const pathAfterRepo = '/' + segments.slice(repoIndex + 1).join('/');
+            // Redirect to hash-based routing
+            window.location.replace(window.location.origin + '/' + repo + '/#' + pathAfterRepo);
         }
-
-        // Remove trailing slashes and index.html
-        path = path.replace(/\/$/, '').replace(/\/index\.html$/, '');
-        if (!path || path === '') {
-            path = '/login';
-        }
-
-        // Ensure path starts with /
-        if (!path.startsWith('/')) {
-            path = '/' + path;
-        }
-
-        // Create the target hash URL
-        const target = base + '#' + path + search + hash;
-        window.location.replace(target);
     </script>
 </head>
 
