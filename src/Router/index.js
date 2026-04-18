@@ -23,6 +23,12 @@ const routes = [
     component: () => import("../views/Home.vue"),
     meta: { requiresAuth: true },
   },
+  {
+    path: "/dashboard",
+    name: "Dashboard",
+    component: () => import("../views/Dashboard.vue"),
+    meta: { requiresAuth: true },
+  },
 
   {
     path: "/:pathMatch(.*)*",

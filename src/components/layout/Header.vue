@@ -25,6 +25,12 @@
             </router-link>
           </li>
 
+          <li v-if="currentUser">
+            <router-link to="/dashboard" class="hover:text-orange-500">
+              Dashboard
+            </router-link>
+          </li>
+
           <li>
             <router-link to="/home#courses" class="hover:text-orange-500">
               Courses
