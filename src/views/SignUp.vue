@@ -175,13 +175,9 @@ const handleSubmit = () => {
     password: form.password,
   };
 
-  console.log("User to register:", user);
-
   if (!registerUser(user)) {
     return Swal.fire("Exists", "Account already exists", "warning");
   }
-
-  console.log("User registered successfully");
 
   logout();
 

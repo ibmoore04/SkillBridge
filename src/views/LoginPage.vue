@@ -84,9 +84,6 @@ const handleLogin = () => {
     return Swal.fire("Login Failed", "Incorrect email or password", "error");
   }
 
-  console.log("User object:", user);
-  console.log("User name:", user.name);
-
   const userName = user.name || "Welcome";
 
   Swal.fire({

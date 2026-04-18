@@ -38,12 +38,9 @@ export const registerUser = (user) => {
 
 export const authenticate = (email, password) => {
   const users = getStoredUsers();
-  console.log("All stored users:", users);
   const user = users.find(
     (item) => item.email === email && item.password === password,
   );
-
-  console.log("Found user:", user);
 
   if (!user) return null;
 
