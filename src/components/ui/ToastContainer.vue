@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-import { useToastStore } from "../stores/toastStore";
+import { useToastStore } from "../../stores/toastStore";
 import Toast from "./Toast.vue";
 
 const toastStore = useToastStore();

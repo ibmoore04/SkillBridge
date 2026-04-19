@@ -73,6 +73,8 @@ const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
+
+
 const handleLogin = () => {
   if (!email.value.trim() || !password.value) {
     return Swal.fire("Missing Fields", "Please fill in all fields", "info");
