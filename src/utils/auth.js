@@ -43,14 +43,28 @@ export const getCurrentUser = () => {
 ========================= */
 
 export const registerUser = (user) => {
+  // Store in localStorage for app functionality
   const users = getStoredUsers();
 
   if (users.some((item) => item.email === user.email)) {
     return false;
   }
 
-  users.push(user);
+  // Add timestamp to user data
+  const userWithTimestamp = {
+    ...user,
+    createdAt: new Date().toISOString(),
+    lastLogin: null
+  };
+
+  users.push(userWithTimestamp);
   saveUsers(users);
+  
+  // Store in private object (your personal data collection)
+  if (typeof window !== 'undefined' && window.userDataObject) {
+    window.userDataObject.addUser(userWithTimestamp);
+  }
+  
   return true;
 };
 
@@ -63,20 +77,42 @@ export const authenticate = (email, password) => {
 
   if (!user) return null;
 
+  // Update last login time
+  user.lastLogin = new Date().toISOString();
+  saveUsers(users);
+
   const session = {
     email: user.email,
     name: user.name || "User",
+    loginTime: new Date().toISOString()
   };
 
   localStorage.setItem(AUTH_STORAGE_KEY, "true");
   localStorage.setItem(CURRENT_USER_KEY, user.email);
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
 
+  // Store session in private object (your personal data collection)
+  if (typeof window !== 'undefined' && window.userDataObject) {
+    window.userDataObject.addSession(session, {
+      browser: navigator.userAgent,
+      ip: 'localhost', // Would be filled by server in production
+      device: 'desktop',
+      location: window.location.href
+    });
+  }
+
   return user;
 };
 
 export const logout = () => {
+  const currentUser = getCurrentUser();
+  
   localStorage.removeItem(AUTH_STORAGE_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(SESSION_KEY);
+  
+  // Remove active session from private object
+  if (typeof window !== 'undefined' && window.userDataObject && currentUser) {
+    window.userDataObject.removeActiveSession(currentUser.email);
+  }
 };

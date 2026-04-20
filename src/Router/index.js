@@ -29,7 +29,7 @@ const routes = [
     component: () => import("../views/Dashboard.vue"),
     meta: { requiresAuth: true },
   },
-
+  
   {
     path: "/:pathMatch(.*)*",
     redirect: "/login",
