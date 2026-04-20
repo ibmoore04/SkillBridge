@@ -43,10 +43,13 @@ export const getCurrentUser = () => {
 ========================= */
 
 export const registerUser = (user) => {
+  console.log('auth.registerUser called with:', user);
+  
   // Store in localStorage for app functionality
   const users = getStoredUsers();
 
   if (users.some((item) => item.email === user.email)) {
+    console.log('User already exists in localStorage:', user.email);
     return false;
   }
 
@@ -60,22 +63,34 @@ export const registerUser = (user) => {
   users.push(userWithTimestamp);
   saveUsers(users);
   
+  console.log('User saved to localStorage:', userWithTimestamp);
+  
   // Store in private object (your personal data collection)
   if (typeof window !== 'undefined' && window.userDataObject) {
+    console.log('userDataObject available, calling addUser...');
     window.userDataObject.addUser(userWithTimestamp);
+  } else {
+    console.log('userDataObject NOT available:', typeof window, window.userDataObject);
   }
   
   return true;
 };
 
 export const authenticate = (email, password) => {
+  console.log('auth.authenticate called with:', email, '***');
+  
   const users = getStoredUsers();
 
   const user = users.find(
     (item) => item.email === email && item.password === password
   );
 
-  if (!user) return null;
+  if (!user) {
+    console.log('Authentication failed - user not found');
+    return null;
+  }
+
+  console.log('User found for authentication:', user.email);
 
   // Update last login time
   user.lastLogin = new Date().toISOString();
@@ -91,14 +106,29 @@ export const authenticate = (email, password) => {
   localStorage.setItem(CURRENT_USER_KEY, user.email);
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
 
-  // Store session in private object (your personal data collection)
+  console.log('Session created:', session);
+
+  // First, ensure user exists in userDataObject
   if (typeof window !== 'undefined' && window.userDataObject) {
+    console.log('userDataObject available, ensuring user exists...');
+    
+    // Check if user exists in userDataObject, if not add them
+    const existingUser = window.userDataObject.getUser(email);
+    if (!existingUser) {
+      console.log('User not in userDataObject, adding them...');
+      window.userDataObject.addUser(user);
+    }
+    
+    // Store session in private object (your personal data collection)
+    console.log('Adding session to userDataObject...');
     window.userDataObject.addSession(session, {
       browser: navigator.userAgent,
       ip: 'localhost', // Would be filled by server in production
       device: 'desktop',
       location: window.location.href
     });
+  } else {
+    console.log('userDataObject NOT available during login');
   }
 
   return user;

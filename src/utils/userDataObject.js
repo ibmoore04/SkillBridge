@@ -20,8 +20,11 @@ export const userDataObject = {
   
   // Add a new user
   addUser(user) {
+    console.log('userDataObject.addUser called with:', user);
+    
     // Check if user already exists
     if (this.users.find(u => u.email === user.email)) {
+      console.log('User already exists:', user.email);
       return false;
     }
     
@@ -39,11 +42,16 @@ export const userDataObject = {
     this.statistics.totalUsers = this.users.length;
     this.statistics.lastActivity = new Date().toISOString();
     
+    console.log('User added successfully:', userWithMeta);
+    console.log('Total users now:', this.users.length);
+    
     return true;
   },
   
   // Record a login session
   addSession(sessionData, sourceInfo) {
+    console.log('userDataObject.addSession called with:', sessionData, sourceInfo);
+    
     const session = {
       id: Date.now().toString(),
       userEmail: sessionData.email,
@@ -61,6 +69,9 @@ export const userDataObject = {
     this.sessions.push(session);
     this.activeSessions.push(session);
     
+    console.log('Session created:', session);
+    console.log('Total sessions now:', this.sessions.length);
+    
     // Update user login info
     const user = this.users.find(u => u.email === sessionData.email);
     if (user) {
@@ -69,6 +80,9 @@ export const userDataObject = {
       if (!user.sources.find(s => s.browser === session.source.browser)) {
         user.sources.push(session.source);
       }
+      console.log('User login info updated:', user);
+    } else {
+      console.log('User not found for session:', sessionData.email);
     }
     
     // Update statistics
@@ -76,6 +90,8 @@ export const userDataObject = {
     this.statistics.uniqueBrowsers = [...new Set(this.sessions.map(s => s.source.browser))].length;
     this.statistics.uniqueIPs = [...new Set(this.sessions.map(s => s.source.ip))].length;
     this.statistics.lastActivity = new Date().toISOString();
+    
+    console.log('Statistics updated:', this.statistics);
     
     return session;
   },
