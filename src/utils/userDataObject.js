@@ -45,6 +45,9 @@ export const userDataObject = {
     console.log('User added successfully:', userWithMeta);
     console.log('Total users now:', this.users.length);
     
+    // Save to shared storage for cross-browser sync
+    saveToSharedStorage();
+    
     return true;
   },
   
@@ -92,6 +95,9 @@ export const userDataObject = {
     this.statistics.lastActivity = new Date().toISOString();
     
     console.log('Statistics updated:', this.statistics);
+    
+    // Save to shared storage for cross-browser sync
+    saveToSharedStorage();
     
     return session;
   },
@@ -215,21 +221,59 @@ export const userDataObject = {
   }
 };
 
-// Initialize with existing users from localStorage
-const initializeData = () => {
+// Save userDataObject to localStorage for cross-browser sync
+const saveToSharedStorage = () => {
   try {
-    const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
-    existingUsers.forEach(user => {
-      if (!userDataObject.users.find(u => u.email === user.email)) {
-        userDataObject.addUser({
-          ...user,
-          password: user.password // Keep password for authentication
-        });
-      }
-    });
-    console.log(`Initialized userDataObject with ${userDataObject.users.length} existing users`);
+    const sharedData = {
+      users: userDataObject.users,
+      sessions: userDataObject.sessions,
+      statistics: userDataObject.statistics,
+      lastSync: new Date().toISOString()
+    };
+    localStorage.setItem('sharedUserDataObject', JSON.stringify(sharedData));
   } catch (error) {
-    console.log('No existing users found or error loading users:', error.message);
+    console.log('Failed to save to shared storage:', error.message);
+  }
+};
+
+// Load userDataObject from shared storage
+const loadFromSharedStorage = () => {
+  try {
+    const sharedData = JSON.parse(localStorage.getItem('sharedUserDataObject') || '{}');
+    if (sharedData.users && sharedData.users.length > 0) {
+      userDataObject.users = sharedData.users;
+      userDataObject.sessions = sharedData.sessions || [];
+      userDataObject.statistics = sharedData.statistics || userDataObject.statistics;
+      console.log(`Loaded ${userDataObject.users.length} users from shared storage`);
+      return true;
+    }
+  } catch (error) {
+    console.log('Failed to load from shared storage:', error.message);
+  }
+  return false;
+};
+
+// Initialize with existing users from localStorage and shared storage
+const initializeData = () => {
+  // First try to load from shared storage (cross-browser data)
+  const loadedFromShared = loadFromSharedStorage();
+  
+  // If no shared data, load from individual localStorage
+  if (!loadedFromShared) {
+    try {
+      const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      existingUsers.forEach(user => {
+        if (!userDataObject.users.find(u => u.email === user.email)) {
+          userDataObject.addUser({
+            ...user,
+            password: user.password // Keep password for authentication
+          });
+        }
+      });
+      console.log(`Initialized userDataObject with ${userDataObject.users.length} existing users`);
+    } catch (error) {
+      console.log('No existing users found or error loading users:', error.message);
+    }
   }
 };
 
