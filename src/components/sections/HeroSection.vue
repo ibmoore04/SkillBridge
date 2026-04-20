@@ -26,7 +26,7 @@
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-14">
         <button
-          class="bg-yellow-400 hover:bg-orange-600 px-6 py-3 rounded-lg font-medium w-full sm:w-auto"
+          class="bg-brand text-white px-6 py-3 rounded-lg font-medium w-full sm:w-auto"
         >
           Explore Courses
         </button>

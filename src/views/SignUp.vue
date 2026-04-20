@@ -100,7 +100,7 @@
           <!-- SUBMIT -->
           <button
             type="submit"
-            class="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition"
+            class="w-full bg-brand text-white py-2 rounded-md hover:bg-brand/90 transition"
           >
             Sign Up
           </button>
@@ -109,7 +109,7 @@
         <!-- LOGIN LINK -->
         <p class="text-sm text-gray-500 mt-6 text-center">
           Already have an account?
-          <router-link to="/login" class="text-orange-500 hover:underline">Login</router-link>
+          <router-link to="/login" class="text-brand hover:underline">Login</router-link>
         </p>
       </div>
     </div>

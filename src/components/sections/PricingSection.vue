@@ -50,7 +50,7 @@
           <button
             class="mt-10 w-full py-3 rounded-lg font-medium transition"
             :class="plan.popular
-              ? 'bg-orange-500 text-white hover:bg-orange-600'
+              ? 'bg-brand text-white hover:bg-brand/90'
               : 'bg-gray-100 text-gray-900 hover:bg-gray-200'"
             @click="selectPlan(plan)"
           >

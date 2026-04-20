@@ -41,7 +41,7 @@
         <!-- Submit -->
         <button
           type="submit"
-          class="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 text-sm md:text-base"
+          class="w-full bg-brand text-white py-2 rounded-md hover:bg-brand/90 text-sm md:text-base"
         >
           Login
         </button>
@@ -50,7 +50,7 @@
 
       <p class="text-xs md:text-sm text-gray-500 mt-6 text-center">
         Don’t have an account?
-        <router-link to="/signup" class="text-orange-500">Sign Up</router-link>
+        <router-link to="/signup" class="text-brand">Sign Up</router-link>
       </p>
 
     </div>

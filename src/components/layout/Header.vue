@@ -2,7 +2,7 @@
   <header class="w-full">
 
     <!-- Top Banner -->
-    <div class="bg-orange-500 text-white text-xs md:text-sm text-center py-4 px-3 my-2 mx-4 rounded-md">
+    <div class="bg-brand text-white text-xs md:text-sm text-center py-4 px-3 my-2 mx-4 rounded-md">
       Free Courses ✨ Sale Ends Soon, Get It Now →
     </div>
 
@@ -37,10 +37,10 @@
             </router-link>
           </li>
 
-          <li><a href="#courses" class="hover:text-orange-500">Courses</a></li>
-          <li><a href="#about" class="hover:text-orange-500">About Us</a></li>
-          <li><a href="#pricing" class="hover:text-orange-500">Pricing</a></li>
-          <li><a href="#contact" class="hover:text-orange-500">Contact</a></li>
+          <li><a href="#courses" class="hover:text-brand">Courses</a></li>
+          <li><a href="#about" class="hover:text-brand">About Us</a></li>
+          <li><a href="#pricing" class="hover:text-brand">Pricing</a></li>
+          <li><a href="#contact" class="hover:text-brand">Contact</a></li>
 
         </ul>
 
@@ -54,7 +54,7 @@
               <div class="flex items-center gap-3">
 
                 <!-- Avatar -->
-                <div class="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white font-semibold text-sm">
+                <div class="w-9 h-9 rounded-full bg-brand flex items-center justify-center text-white font-semibold text-sm">
                   {{ initials }}
                 </div>
 
@@ -71,7 +71,7 @@
                 <!-- Logout -->
                 <button
                   @click="handleLogout"
-                  class="ml-2 bg-orange-500 hover:bg-orange-600 text-white px-3 py-1.5 rounded-md text-sm"
+                  class="ml-2 bg-brand hover:bg-brand/90 text-white px-3 py-1.5 rounded-md text-sm"
                 >
                   Logout
                 </button>
@@ -80,13 +80,13 @@
             </template>
 
             <template v-else>
-              <router-link to="/signup" class="text-sm text-gray-700 hover:text-orange-500">
+              <router-link to="/signup" class="text-sm text-gray-700 hover:text-brand">
                 Sign Up
               </router-link>
 
               <router-link
                 to="/login"
-                class="bg-orange-500 hover:bg-orange-600 text-white px-5 py-2 rounded-md text-sm font-medium"
+                class="bg-brand text-white px-5 py-2 rounded-md text-sm font-medium"
               >
                 Login
               </router-link>
@@ -99,7 +99,7 @@
 
             <!-- User -->
             <div v-if="currentUser"
-              class="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white text-sm font-semibold">
+              class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white text-sm font-semibold">
               {{ initials }}
             </div>
 
@@ -169,7 +169,7 @@
           <!-- User -->
           <div v-if="currentUser" class="mt-8 border-t pt-4 flex items-center gap-3">
 
-            <div class="w-9 h-9 rounded-full bg-orange-500 flex items-center justify-center text-white">
+            <div class="w-9 h-9 rounded-full bg-brand flex items-center justify-center text-white">
               {{ initials }}
             </div>
 
@@ -184,7 +184,7 @@
           <div v-if="currentUser" class="mt-4">
             <button
               @click="handleLogout"
-              class="w-full bg-orange-500 text-white py-2 rounded-md"
+              class="w-full bg-brand text-white py-2 rounded-md"
             >
               Logout
             </button>
@@ -236,7 +236,7 @@ const handleLogout = () => {
 
 <style scoped>
 .active-link {
-  color: #f97316;
+  color: #ff9500;
   font-weight: 600;
 }
 </style>
