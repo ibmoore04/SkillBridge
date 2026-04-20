@@ -10,11 +10,8 @@
         <!-- Email -->
         <div>
           <label class="text-sm text-gray-600">Email</label>
-          <input
-            v-model="email"
-            type="email"
-            class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-400 outline-none text-sm md:text-base"
-          />
+          <input v-model="email" type="email"
+            class="w-full mt-1 px-4 py-2 border rounded-md focus:ring-2 focus:ring-orange-400 outline-none text-sm md:text-base" />
         </div>
 
         <!-- Password -->
@@ -22,17 +19,11 @@
           <label class="text-sm text-gray-600">Password</label>
 
           <div class="relative">
-            <input
-              :type="showPassword ? 'text' : 'password'"
-              v-model="password"
-              class="w-full mt-1 px-4 py-2 border rounded-md pr-10 focus:ring-2 focus:ring-orange-400 outline-none text-sm md:text-base"
-            />
+            <input :type="showPassword ? 'text' : 'password'" v-model="password"
+              class="w-full mt-1 px-4 py-2 border rounded-md pr-10 focus:ring-2 focus:ring-orange-400 outline-none text-sm md:text-base" />
 
-            <button
-              type="button"
-              @click="togglePassword"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
-            >
+            <button type="button" @click="togglePassword"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
               👁
             </button>
           </div>
@@ -47,37 +38,25 @@
         </div>
 
         <!-- Submit -->
-        <button
-          type="submit"
-          :disabled="isLoading"
-          class="w-full bg-brand text-white py-2 rounded-md hover:bg-brand/90 text-sm md:text-base flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          <svg
-            v-if="isLoading"
-            class="animate-spin h-5 w-5 text-white"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              class="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8v8H4z"
-            ></path>
+        <button type="submit" :disabled="isLoading"
+          class="w-full bg-brand text-white py-2 rounded-md hover:bg-brand/90 text-sm md:text-base flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+          <svg v-if="isLoading" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+            viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
           </svg>
 
           <span>{{ isLoading ? "Logging in..." : "Login" }}</span>
         </button>
 
       </form>
+
+      <p class="text-xs md:text-sm text-gray-500 mt-6 text-center">
+        Don’t have an account?
+        <router-link to="/signup" class="text-brand font-medium">
+          Sign Up
+        </router-link>
+      </p>
 
     </div>
   </main>

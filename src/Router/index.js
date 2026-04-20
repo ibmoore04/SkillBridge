@@ -16,7 +16,6 @@ const routes = [
     path: "/signup",
     name: "SignUp",
     component: () => import("../views/SignUp.vue"),
-    meta: { hideLayout: true },
   },
   {
     path: "/home",
@@ -30,6 +29,7 @@ const routes = [
     component: () => import("../views/Dashboard.vue"),
     meta: { requiresAuth: true },
   },
+
   {
     path: "/:pathMatch(.*)*",
     redirect: "/login",
@@ -39,27 +39,33 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
+
   scrollBehavior(to) {
-    return to.hash
-      ? { el: to.hash, behavior: "smooth" }
-      : { top: 0 };
+    if (to.hash) {
+      return {
+        el: to.hash,
+        behavior: "smooth",
+      };
+    }
+    return { top: 0 };
   },
 });
 
-/* =========================
-   AUTH GUARD (IMPROVED)
-========================= */
 router.beforeEach((to, from, next) => {
   const loggedIn = isLoggedIn();
 
-  // protect private pages
+  // Protect /home route - require authentication
   if (to.meta.requiresAuth && !loggedIn) {
-    return next("/login");
+    console.log("Protected route - redirecting to login");
+    next("/login");
+    return;
   }
 
-  // prevent logged-in users from seeing login/signup
+  // Redirect already logged-in users away from login/signup
   if ((to.path === "/login" || to.path === "/signup") && loggedIn) {
-    return next("/home");
+    console.log("Already logged in - redirecting to home");
+    next("/home");
+    return;
   }
 
   next();
