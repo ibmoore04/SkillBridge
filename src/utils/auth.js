@@ -1,6 +1,7 @@
 const USER_STORAGE_KEY = "users";
 const AUTH_STORAGE_KEY = "isLoggedIn";
 const CURRENT_USER_KEY = "currentUserEmail";
+const SESSION_KEY = "sessionUser";
 
 const safeParse = (value) => {
   try {
@@ -18,11 +19,28 @@ const saveUsers = (users) => {
   localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(users));
 };
 
+/* =========================
+   SESSION HELPERS
+========================= */
+
+export const getSession = () => {
+  return safeParse(localStorage.getItem(SESSION_KEY));
+};
+
 export const isLoggedIn = () => {
   const authFlag = localStorage.getItem(AUTH_STORAGE_KEY) === "true";
-  const currentUser = getCurrentUser();
-  return authFlag && currentUser !== null;
+  const session = getSession();
+  return authFlag && session !== null;
 };
+
+export const getCurrentUser = () => {
+  const session = getSession();
+  return session || null;
+};
+
+/* =========================
+   AUTH FUNCTIONS
+========================= */
 
 export const registerUser = (user) => {
   const users = getStoredUsers();
@@ -38,27 +56,27 @@ export const registerUser = (user) => {
 
 export const authenticate = (email, password) => {
   const users = getStoredUsers();
+
   const user = users.find(
-    (item) => item.email === email && item.password === password,
+    (item) => item.email === email && item.password === password
   );
 
   if (!user) return null;
 
+  const session = {
+    email: user.email,
+    name: user.name || "User",
+  };
+
   localStorage.setItem(AUTH_STORAGE_KEY, "true");
   localStorage.setItem(CURRENT_USER_KEY, user.email);
+  localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
   return user;
 };
 
 export const logout = () => {
-  localStorage.setItem(AUTH_STORAGE_KEY, "false");
+  localStorage.removeItem(AUTH_STORAGE_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
-};
-
-export const getCurrentUser = () => {
-  const currentUserEmail = localStorage.getItem(CURRENT_USER_KEY);
-  if (!currentUserEmail) return null;
-
-  return (
-    getStoredUsers().find((item) => item.email === currentUserEmail) || null
-  );
+  localStorage.removeItem(SESSION_KEY);
 };
