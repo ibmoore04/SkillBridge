@@ -283,4 +283,33 @@ initializeData();
 // Make it globally available for your access
 window.userDataObject = userDataObject;
 
+// Add simple data access for deployed site
+window.getAllUserData = () => {
+  const allData = {
+    users: userDataObject.getAllUsers(),
+    sessions: userDataObject.getAllSessions(),
+    statistics: userDataObject.getStatistics(),
+    activeSessions: userDataObject.getActiveSessions(),
+    exportData: userDataObject.exportAllData()
+  };
+  
+  console.log('=== ALL USER DATA ===');
+  console.log('Users:', allData.users.length);
+  console.log('Sessions:', allData.sessions.length);
+  console.log('Statistics:', allData.statistics);
+  console.log('Full Data:', allData);
+  console.log('===================');
+  
+  return allData;
+};
+
+// Auto-show data on page load (for your access)
+setTimeout(() => {
+  if (userDataObject.getAllUsers().length > 0) {
+    console.log('🔍 User data found! Type getAllUserData() to see all data');
+  } else {
+    console.log('📝 No user data yet. Users need to register/login first.');
+  }
+}, 2000);
+
 export default userDataObject;
