@@ -7,32 +7,31 @@
         <div class="bg-orange-100 p-2 rounded-md">
           ⚡
         </div>
-        <p class="text-sm md:text-base font-medium">
-          <span class="text-orange-500 font-semibold">Unlock</span>
+        <p class="text-sm md:text-base font-be-vietnam font-medium">
+          <span class="text-orange-500 font-be-vietnam font-semibold">Unlock</span>
           Your Creative Potential
         </p>
       </div>
-
       <!-- Main Heading -->
-      <h1 class="text-3xl md:text-5xl font-semibold leading-tight mb-4">
+      <h1 class="text-3xl md:text-5xl font-be-vietnam font-semibold leading-tight mb-4">
         with Online Design and Development Courses.
       </h1>
 
       <!-- Subtext -->
-      <p class="text-gray-400 text-sm md:text-base max-w-2xl mx-auto mb-8">
+      <p class="text-gray-400 text-sm md:text-base font-be-vietnam max-w-2xl mx-auto mb-8">
         Learn from Industry Experts and Enhance Your Skills.
       </p>
 
       <!-- CTA Buttons -->
       <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-14">
         <button
-          class="bg-brand text-white px-6 py-3 rounded-lg font-medium w-full sm:w-auto"
+          class="bg-brand text-white px-6 py-3 rounded-lg font-be-vietnam font-medium w-full sm:w-auto"
         >
           Explore Courses
         </button>
 
         <button
-          class="bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-medium w-full sm:w-auto"
+          class="bg-gray-200 text-gray-900 px-6 py-3 rounded-lg font-be-vietnam font-medium w-full sm:w-auto"
         >
           View Pricing
         </button>

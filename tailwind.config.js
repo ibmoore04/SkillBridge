@@ -6,6 +6,10 @@ export default {
       colors: {
         brand: '#ff9500',
       },
+      fontFamily: {
+        'be-vietnam': ['"Be Vietnam Pro"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        'sans': ['"Be Vietnam Pro"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
     },
   },
   plugins: [],

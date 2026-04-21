@@ -5,12 +5,12 @@
       <div class="mb-12 text-center md:text-left animate-[fadeInDown_0.6s_ease-out]">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-orange-50 backdrop-blur-sm border border-orange-200 mb-4">
           <div class="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></div>
-          <span class="text-xs font-medium text-orange-700">Live Dashboard</span>
+          <span class="text-xs font-be-vietnam font-medium text-orange-700">Live Dashboard</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 via-orange-600 to-orange-400 bg-clip-text text-transparent mb-3">
+        <h1 class="text-4xl md:text-5xl font-be-vietnam font-bold bg-gradient-to-r from-gray-900 via-orange-600 to-orange-400 bg-clip-text text-transparent mb-3">
           Learning Dashboard
         </h1>
-        <p class="text-gray-600 text-lg">Track your learning progress and manage your courses</p>
+        <p class="text-gray-600 text-lg font-be-vietnam">Track your learning progress and manage your courses</p>
       </div>
 
       <!-- Loading State -->
@@ -35,10 +35,10 @@
                 <div class="flex items-center justify-between mb-4">
                   <span class="text-4xl">📚</span>
                   <div class="px-3 py-1 rounded-full bg-orange-50 border border-orange-200">
-                    <span class="text-xs font-semibold text-orange-600">Total</span>
+                    <span class="text-xs font-be-vietnam font-semibold text-orange-600">Total</span>
                   </div>
                 </div>
-                <h3 class="text-3xl font-bold text-gray-900 mb-1">{{ courseStore.totalCourses }}</h3>
+                <h3 class="text-3xl font-be-vietnam font-bold text-gray-900 mb-1">{{ courseStore.totalCourses }}</h3>
                 <p class="text-gray-500 text-sm">Active Courses</p>
                 <div class="mt-4 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div class="h-full w-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transform origin-left transition-transform duration-1000" style="transform: scaleX(1)"></div>
@@ -54,10 +54,10 @@
                 <div class="flex items-center justify-between mb-4">
                   <span class="text-4xl">✅</span>
                   <div class="px-3 py-1 rounded-full bg-green-50 border border-green-200">
-                    <span class="text-xs font-semibold text-green-600">Completed</span>
+                    <span class="text-xs font-be-vietnam font-semibold text-green-600">Completed</span>
                   </div>
                 </div>
-                <h3 class="text-3xl font-bold text-gray-900 mb-1">{{ courseStore.completedCourses }}</h3>
+                <h3 class="text-3xl font-be-vietnam font-bold text-gray-900 mb-1">{{ courseStore.completedCourses }}</h3>
                 <p class="text-gray-500 text-sm">Courses Finished</p>
                 <div class="mt-4 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div class="h-full w-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full transform origin-left transition-transform duration-1000" :style="{ transform: `scaleX(${courseStore.totalCourses ? courseStore.completedCourses / courseStore.totalCourses : 0})` }"></div>
@@ -73,10 +73,10 @@
                 <div class="flex items-center justify-between mb-4">
                   <span class="text-4xl">📈</span>
                   <div class="px-3 py-1 rounded-full bg-orange-50 border border-orange-200">
-                    <span class="text-xs font-semibold text-orange-600">Progress</span>
+                    <span class="text-xs font-be-vietnam font-semibold text-orange-600">Progress</span>
                   </div>
                 </div>
-                <h3 class="text-3xl font-bold text-gray-900 mb-1">{{ courseStore.totalProgress }}%</h3>
+                <h3 class="text-3xl font-be-vietnam font-bold text-gray-900 mb-1">{{ courseStore.totalProgress }}%</h3>
                 <p class="text-gray-500 text-sm">Overall Progress</p>
                 <div class="mt-4 h-1 w-full bg-gray-100 rounded-full overflow-hidden">
                   <div class="h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full transition-all duration-1000" :style="{ width: `${courseStore.totalProgress}%` }"></div>
@@ -100,12 +100,12 @@
                         <span class="text-xl">🕐</span>
                       </div>
                       <div>
-                        <h2 class="text-xl font-bold text-gray-900">Recently Viewed</h2>
+                        <h2 class="text-xl font-be-vietnam font-bold text-gray-900">Recently Viewed</h2>
                         <p class="text-gray-500 text-sm">Your recent activity</p>
                       </div>
                     </div>
                     <div class="px-3 py-1 rounded-full bg-orange-50 border border-orange-200">
-                      <span class="text-xs font-medium text-orange-600">Live</span>
+                      <span class="text-xs font-be-vietnam font-medium text-orange-600">Live</span>
                     </div>
                   </div>
                   <div class="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
@@ -133,12 +133,12 @@
                         <span class="text-xl">🔖</span>
                       </div>
                       <div>
-                        <h2 class="text-xl font-bold text-gray-900">Bookmarked Courses</h2>
+                        <h2 class="text-xl font-be-vietnam font-bold text-gray-900">Bookmarked Courses</h2>
                         <p class="text-gray-500 text-sm">Saved for later</p>
                       </div>
                     </div>
                     <div class="px-3 py-1 rounded-full bg-orange-50 border border-orange-200">
-                      <span class="text-xs font-medium text-orange-600">{{ courseStore.bookmarkedCourses.length }} items</span>
+                      <span class="text-xs font-be-vietnam font-medium text-orange-600">{{ courseStore.bookmarkedCourses.length }} items</span>
                     </div>
                   </div>
                   <div class="space-y-3 max-h-[400px] overflow-y-auto custom-scrollbar">
