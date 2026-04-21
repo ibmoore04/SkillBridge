@@ -29,7 +29,6 @@ const routes = [
     component: () => import("../views/Dashboard.vue"),
     meta: { requiresAuth: true },
   },
-  
   {
     path: "/:pathMatch(.*)*",
     redirect: "/login",
@@ -52,23 +51,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  const loggedIn = isLoggedIn();
-
-  // Protect /home route - require authentication
-  if (to.meta.requiresAuth && !loggedIn) {
-    console.log("Protected route - redirecting to login");
+  if (to.meta.requiresAuth && !isLoggedIn()) {
     next("/login");
-    return;
+  } else {
+    next();
   }
-
-  // Redirect already logged-in users away from login/signup
-  if ((to.path === "/login" || to.path === "/signup") && loggedIn) {
-    console.log("Already logged in - redirecting to home");
-    next("/home");
-    return;
-  }
-
-  next();
 });
 
 export default router;
